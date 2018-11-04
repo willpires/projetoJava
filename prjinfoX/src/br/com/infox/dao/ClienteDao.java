@@ -16,7 +16,6 @@ public class ClienteDao implements CrudDao<Cliente> {
 
     @Override
     public int adicionar(Cliente cliente) {
-        int adicionado = 0;
         String sql = "insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
@@ -25,12 +24,12 @@ public class ClienteDao implements CrudDao<Cliente> {
             pst.setString(3, cliente.getTelefone());
             pst.setString(4, cliente.getEmail());
 
-            adicionado = pst.executeUpdate();
+            return pst.executeUpdate();
         } catch (SQLException e) {
             System.err.print("Falha ao tentar adicionar: " + e.getMessage());
 
         }
-        return adicionado;
+        return 0;
     }
 
     @Override
