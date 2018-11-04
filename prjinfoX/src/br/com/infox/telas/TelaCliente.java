@@ -5,6 +5,8 @@
  */
 package br.com.infox.telas;
 
+import br.com.infox.controller.ClienteController;
+import br.com.infox.controller.ContratoCliente;
 import java.sql.*;
 import br.com.infox.dal.FabricaConexao;
 import java.awt.HeadlessException;
@@ -17,7 +19,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author leoma
  */
-public class TelaCliente extends javax.swing.JInternalFrame {
+public class TelaCliente extends javax.swing.JInternalFrame implements ContratoCliente.ViewCliente {
 
     Connection conexao = null;
     PreparedStatement pst = null;
@@ -30,8 +32,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         initComponents();
         conexao = FabricaConexao.obterConexao();
     }
-
     //adicionar clientes
+
+    @Override
+    public void sucessoPesquisa(ResultSet resultSet) {
+        
+    }
+    
     private void adicionar() {
         String sql = "insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
         try {
@@ -385,7 +392,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
         //o evento abaixo é do tipo "digita e aparece em tempo real"
-        pesquisar_cliente();
+//        pesquisar_cliente();
+        ClienteController clienteController = new ClienteController();
+        clienteController.pesquisarCliente("Agenor Souza", this);
 
     }//GEN-LAST:event_txtCliPesquisarKeyReleased
 
