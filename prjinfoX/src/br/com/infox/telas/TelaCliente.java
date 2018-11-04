@@ -6,7 +6,7 @@
 package br.com.infox.telas;
 
 import java.sql.*;
-import br.com.infox.dal.ModuloConexao;
+import br.com.infox.dal.FabricaConexao;
 import javax.swing.JOptionPane;
 // a linha abaixo importa recursos da biblioteca rs2xml.jar para preenchimento da tabela
 
@@ -27,7 +27,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
      */
     public TelaCliente() {
         initComponents();
-        conexao=ModuloConexao.conector();
+        conexao=FabricaConexao.obterConexao();
     }
     //adicionar clientes
  private void adicionar (){

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.infox.telas;
 
 /**
@@ -12,7 +7,7 @@ package br.com.infox.telas;
  * @author MARCUS
  */
 import java.sql.*;
-import br.com.infox.dal.ModuloConexao;
+import br.com.infox.dal.FabricaConexao;
 import javax.swing.JOptionPane;
 
 public class TelaUsuario extends javax.swing.JInternalFrame {
@@ -30,7 +25,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
      */
     public TelaUsuario() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = FabricaConexao.obterConexao();
     }
 // metodo para consultar usuarios
 

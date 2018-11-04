@@ -6,7 +6,7 @@
 package br.com.infox.telas;
 
 import java.sql.*;
-import br.com.infox.dal.ModuloConexao;
+import br.com.infox.dal.FabricaConexao;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -71,7 +71,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = FabricaConexao.obterConexao();
         // linha de baixo é de apoio ao status da conexao do banco
         //System.out.println(conexao);
         if (conexao != null) {

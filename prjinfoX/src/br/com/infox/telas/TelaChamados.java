@@ -6,7 +6,7 @@
 package br.com.infox.telas;
 
 import java.sql.*;
-import br.com.infox.dal.ModuloConexao;
+import br.com.infox.dal.FabricaConexao;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -28,7 +28,7 @@ public class TelaChamados extends javax.swing.JInternalFrame {
      */
     public TelaChamados() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = FabricaConexao.obterConexao();
     }
 
     private void Pesquisar_cliente() {
