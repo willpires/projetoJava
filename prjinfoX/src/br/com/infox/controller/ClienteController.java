@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package br.com.infox.controller;
+package br.com.infox.dao;
+
+import br.com.infox.dao.ClienteDao;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+
 
 
 /**
@@ -13,13 +18,13 @@ package br.com.infox.controller;
 public class ClienteController {
    
     
-    public boolean pesquisarCliente(String pesuisar){
+  public boolean pesquisarCliente(String pesquisar){
         
         
-         
-        
-        
-        
+         ClienteDao c = new ClienteDao();
+         c.pesquisar(pesquisar);
+ 
+             
         
     }
 
