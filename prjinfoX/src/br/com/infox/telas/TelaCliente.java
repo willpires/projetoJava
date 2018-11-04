@@ -7,155 +7,156 @@ package br.com.infox.telas;
 
 import java.sql.*;
 import br.com.infox.dal.FabricaConexao;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 // a linha abaixo importa recursos da biblioteca rs2xml.jar para preenchimento da tabela
 
 import net.proteanit.sql.DbUtils;
-
 
 /**
  *
  * @author leoma
  */
 public class TelaCliente extends javax.swing.JInternalFrame {
-    Connection conexao=null;
-    PreparedStatement pst=null;
-    ResultSet rs=null;
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form TelaCliente
      */
     public TelaCliente() {
         initComponents();
-        conexao=FabricaConexao.obterConexao();
+        conexao = FabricaConexao.obterConexao();
     }
+
     //adicionar clientes
- private void adicionar (){
-        String sql ="insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
-     try {
-         pst=conexao.prepareStatement(sql);
-         pst.setString(1,txtCliNome.getText());
-         pst.setString(2,txtCliEndereco.getText());
-         pst.setString(3,txtCliFone.getText());
-         pst.setString(4,txtCliEmail.getText());
-  
-         //validaçao dos campos obrigatorios 
-         if ((txtCliNome.getText().isEmpty())||(txtCliFone.getText().isEmpty())){ 
-             JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
-             
-         }else{
-             
-         //a linha abaixo atualiza a tabela Clientes com os dados do formularios
-        //a estrutura abaixo é usada para confirmar a inserçao dos dados na tabela
-        int adicionado = pst.executeUpdate();
-        //linha abaixo somente para apoio a logica
-        //System.out.println(adicionado);
-        if (adicionado > 0){
-            JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso");
-            txtCliNome.setText(null);
-            txtCliEndereco.setText(null);
-            txtCliFone.setText(null);
-            txtCliEmail.setText(null);
-        
-            
-        }    
-         }
-     } catch (Exception e){
-           JOptionPane.showMessageDialog(null, e);
-     }  
-    }
-    // metodo de pesquisa de clientes pelo nome com filtro
-   private void pesquisar_cliente(){
-       String sql="select * from tbclientes where nomeCli like ?";
-       try {
-           pst=conexao.prepareStatement(sql);
-           // passando o conteudo da caixa de pesquisa para o ?
-           ////"%" é continuaçao do comando sql
-           pst.setString(1, txtCliPesquisar.getText() + "%");
-           rs=pst.executeQuery();
-           // usando biblioteca rs2xml.jar preenchendo a tabela
-           tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
-           
-           
-       }catch (Exception e){
+    private void adicionar() {
+        String sql = "insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCliNome.getText());
+            pst.setString(2, txtCliEndereco.getText());
+            pst.setString(3, txtCliFone.getText());
+            pst.setString(4, txtCliEmail.getText());
+
+            //validaçao dos campos obrigatorios 
+            if ((txtCliNome.getText().isEmpty()) || (txtCliFone.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
+
+            } else {
+
+                //a linha abaixo atualiza a tabela Clientes com os dados do formularios
+                //a estrutura abaixo é usada para confirmar a inserçao dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                //linha abaixo somente para apoio a logica
+                //System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso");
+                    txtCliNome.setText(null);
+                    txtCliEndereco.setText(null);
+                    txtCliFone.setText(null);
+                    txtCliEmail.setText(null);
+
+                }
+            }
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-       }
-   }
-   // metodo para setar os campos do formulario com o conteudo da tabela    
-   public void setar_campos(){
-    int setar = tblClientes.getSelectedRow();
-    txtCliId.setText(tblClientes.getModel().getValueAt(setar,0).toString());
-    txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
-    txtCliEndereco.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
-    txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
-    txtCliEmail.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
-    // desabilitando o botao adicionar para nao ter duplicidade
-    btnAdicionar.setEnabled(false);
-}
-   // metodo que altera dados do cliente
- private void alterar(){
-        String sql="update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where idcli=?";
-        try{
-            pst=conexao.prepareStatement(sql);
+        }
+    }
+
+    // metodo de pesquisa de clientes pelo nome com filtro
+    private void pesquisar_cliente() {
+        String sql = "select * from tbclientes where nomeCli like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            // passando o conteudo da caixa de pesquisa para o ?
+            ////"%" é continuaçao do comando sql
+            pst.setString(1, txtCliPesquisar.getText() + "%");
+            rs = pst.executeQuery();
+            // usando biblioteca rs2xml.jar preenchendo a tabela
+            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    // metodo para setar os campos do formulario com o conteudo da tabela    
+
+    public void setar_campos() {
+        int setar = tblClientes.getSelectedRow();
+        txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
+        txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
+        txtCliEndereco.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
+        txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
+        txtCliEmail.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
+        // desabilitando o botao adicionar para nao ter duplicidade
+        btnAdicionar.setEnabled(false);
+    }
+    // metodo que altera dados do cliente
+
+    private void alterar() {
+        String sql = "update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where idcli=?";
+        try {
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, txtCliNome.getText());
             pst.setString(2, txtCliEndereco.getText());
             pst.setString(3, txtCliFone.getText());
             pst.setString(4, txtCliEmail.getText());
             pst.setString(5, txtCliId.getText());
-            
-            if ((txtCliNome.getText().isEmpty())||(txtCliFone.getText().isEmpty())) { 
-             JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
-             
-         }else{
-             
-         //a linha abaixo atualiza a tabela Cliente com os dados do formularios
-        //a estrutura abaixo é usada para confirmar a alteraçao dos dados na tabela
-        int adicionado = pst.executeUpdate();
-        //linha abaixo somente para apoio a logica
-        //System.out.println(adicionado);
-        if (adicionado >0){
-            JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso");
-            txtCliNome.setText(null);
-            txtCliEndereco.setText(null);
-            txtCliFone.setText(null);
-            txtCliEmail.setText(null);
-            
-            btnAdicionar.setEnabled(true);
-        }
-      
-         }
-        }catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e);
+
+            if ((txtCliNome.getText().isEmpty()) || (txtCliFone.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
+
+            } else {
+
+                //a linha abaixo atualiza a tabela Cliente com os dados do formularios
+                //a estrutura abaixo é usada para confirmar a alteraçao dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                //linha abaixo somente para apoio a logica
+                //System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso");
+                    txtCliNome.setText(null);
+                    txtCliEndereco.setText(null);
+                    txtCliFone.setText(null);
+                    txtCliEmail.setText(null);
+
+                    btnAdicionar.setEnabled(true);
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
- // metodo para remoçao de clientes
- private void remover(){
-         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este Cliente? ", "Atençao", JOptionPane.YES_NO_OPTION);
-         if (confirma == JOptionPane.YES_OPTION) {
-         String sql = "delete from tbclientes where idCli=?";
-         try {
-             pst = conexao.prepareStatement(sql);
-             pst.setString(1, txtCliId.getText());
-             int apagado = pst.executeUpdate();
-             if (apagado > 0){
-                 JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
-                 txtCliNome.setText(null);
-                 txtCliEndereco.setText(null);
-                 txtCliFone.setText(null);
-                 txtCliEmail.setText(null);
-                 btnAdicionar.setEnabled(true);
-             }
-             
-             
-         }
-         catch (Exception e ){
-             JOptionPane.showMessageDialog(null, e);
-         }
-             
-         }
-     }
-    
-    
+    // metodo para remoçao de clientes
+
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este Cliente? ", "Atençao", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from tbclientes where idCli=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtCliId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
+                    txtCliNome.setText(null);
+                    txtCliEndereco.setText(null);
+                    txtCliFone.setText(null);
+                    txtCliEmail.setText(null);
+                    btnAdicionar.setEnabled(true);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,8 +374,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-            // chamando o metodo para alterar dados do cliente
-            alterar();
+        // chamando o metodo para alterar dados do cliente
+        alterar();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
@@ -383,21 +384,21 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
-    //o evento abaixo é do tipo "digita e aparece em tempo real"
-    pesquisar_cliente();
+        //o evento abaixo é do tipo "digita e aparece em tempo real"
+        pesquisar_cliente();
 
     }//GEN-LAST:event_txtCliPesquisarKeyReleased
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
-            // evento para setar os campos da tabela com o clique do mouse
-            setar_campos();
-            
+        // evento para setar os campos da tabela com o clique do mouse
+        setar_campos();
+
     }//GEN-LAST:event_tblClientesMouseClicked
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-    // chamando metodo remover
-    remover();
-    // TODO add your handling code here:
+        // chamando metodo remover
+        remover();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
 
 

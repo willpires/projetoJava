@@ -5,47 +5,81 @@ import br.com.infox.model.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import javax.swing.JOptionPane;
 
-public class ClienteDao implements ContratoDao<Cliente> {
+public class ClienteDao implements CrudDao<Cliente> {
 
     PreparedStatement pst;
+    ResultSet rs = null;
+    Connection conexao = FabricaConexao.obterConexao();
 
     @Override
-    public int adicionar(Cliente entidade) {
-        Connection conexao = FabricaConexao.obterConexao();
+    public int adicionar(Cliente cliente) {
         int adicionado = 0;
         String sql = "insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, entidade.getNome());
-            pst.setString(2, entidade.getEndereco());
-            pst.setString(3, entidade.getTelefone());
-            pst.setString(4, entidade.getEmail());
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEndereco());
+            pst.setString(3, cliente.getTelefone());
+            pst.setString(4, cliente.getEmail());
 
             adicionado = pst.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            System.err.print("Falha ao tentar adicionar: " + e.getMessage());
 
         }
         return adicionado;
     }
 
     @Override
-    public boolean remover(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int remover(String id) {
+        String sql = "delete from tbclientes where idCli = ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id);
+            return pst.executeUpdate();
+        } catch (SQLException e) {
+            System.err.print("Falha ao tentar remover: " + e.getMessage());
+        }
+        return 0;
     }
 
     @Override
-    public boolean alterar(int id, Cliente entidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int alterar(String id, Cliente cliente) {
+        String sql = "update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where idcli=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEndereco());
+            pst.setString(3, cliente.getTelefone());
+            pst.setString(4, cliente.getEmail());
+            pst.setInt(5, cliente.getIdCliente());
+
+            return pst.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.print("Falha ao tentar alterar: " + e.getMessage());
+        }
+        return 0;
     }
 
     @Override
-    public List<Cliente> consultar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ResultSet pesquisar(String pesquisa) {
+        String sql = "select * from tbclientes where nomeCli like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            // passando o conteudo da caixa de pesquisa para o ?
+            ////"%" é continuaçao do comando sql
+            pst.setString(1, pesquisa + "%");
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (SQLException e) {
+            System.err.print("Falha ao tentar pesquisar: " + e.getMessage());
+        }
+        return rs;
     }
 
 }
