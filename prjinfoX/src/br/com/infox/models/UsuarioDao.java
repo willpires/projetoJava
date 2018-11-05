@@ -21,6 +21,7 @@ public class UsuarioDao implements CrudDao<Usuario> {
         this.conexao = FabricaConexao.obterConexao();
 
         String sql = "insert into tbusuarios(iduser,usuario,fone,login,senha,perfil) values (?,?,?,?,?,?)";
+        
         try {
 
             pst = conexao.prepareStatement(sql);
