@@ -7,7 +7,7 @@ package br.com.infox.telas;
  * @author MARCUS
  */
 import java.sql.*;
-import br.com.infox.dal.FabricaConexao;
+import br.com.infox.connection.FabricaConexao;
 import javax.swing.JOptionPane;
 
 public class TelaUsuario extends javax.swing.JInternalFrame {

@@ -1,16 +1,10 @@
 package br.com.infox.controller;
 
 import br.com.infox.dao.ClienteDao;
-import br.com.infox.model.Cliente;
+import br.com.infox.bean.Cliente;
 
-
-/**
- *
- * @author williamjosepires
- */
 public class ClienteController {
-
-    ClienteDao clienteDaoTeste;
+    
     ClienteDao clienteDao = new ClienteDao();
 
     public void adicionar(Cliente cliente, ContratoCliente.ViewCliente viewCliente) {

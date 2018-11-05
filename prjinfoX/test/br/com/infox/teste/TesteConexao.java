@@ -5,7 +5,7 @@
  */
 package br.com.infox.teste;
 
-import br.com.infox.dal.FabricaConexao;
+import br.com.infox.connection.FabricaConexao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;

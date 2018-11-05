@@ -8,8 +8,8 @@ package br.com.infox.telas;
 import br.com.infox.controller.ClienteController;
 import br.com.infox.controller.ContratoCliente;
 import java.sql.*;
-import br.com.infox.dal.FabricaConexao;
-import br.com.infox.model.Cliente;
+import br.com.infox.connection.FabricaConexao;
+import br.com.infox.bean.Cliente;
 import javax.swing.JOptionPane;
 // a linha abaixo importa recursos da biblioteca rs2xml.jar para preenchimento da tabela
 

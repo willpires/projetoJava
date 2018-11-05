@@ -1,4 +1,4 @@
-package br.com.infox.dal;
+package br.com.infox.connection;
 
 import java.sql.*;
 

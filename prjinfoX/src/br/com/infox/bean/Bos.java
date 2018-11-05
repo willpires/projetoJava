@@ -1,4 +1,4 @@
-package br.com.infox.model;
+package br.com.infox.bean;
 
 import java.util.Date;
 

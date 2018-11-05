@@ -6,7 +6,7 @@
 package br.com.infox.telas;
 
 import java.sql.*;
-import br.com.infox.dal.FabricaConexao;
+import br.com.infox.connection.FabricaConexao;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;

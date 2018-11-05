@@ -1,4 +1,4 @@
-package br.com.infox.model;
+package br.com.infox.bean;
 
 public class Usuario {
     
