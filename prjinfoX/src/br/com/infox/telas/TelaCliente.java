@@ -31,10 +31,9 @@ public class TelaCliente extends javax.swing.JInternalFrame implements ContratoC
      */
     public TelaCliente() {
         initComponents();
-        conexao = FabricaConexao.obterConexao();
+        this.conexao = FabricaConexao.obterConexao();
     }
 
-//    
     private void pesquisar_cliente() {
         String sql = "select * from tbclientes where nomeCli like ?";
         try {

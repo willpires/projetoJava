@@ -31,8 +31,10 @@ public class UsuarioDao implements CrudDao<Usuario> {
             pst.setString(4, usuario.getLogin());
             pst.setString(5, usuario.getSenha());
             pst.setString(6, usuario.getPerfi());
-
             adicionado = pst.executeUpdate();
+
+            this.conexao.close();
+
             return adicionado;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -51,7 +53,9 @@ public class UsuarioDao implements CrudDao<Usuario> {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idUsuario);
             removido = pst.executeUpdate();
-            conexao.close();
+            
+            this.conexao.close();
+            
             return removido;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -74,8 +78,11 @@ public class UsuarioDao implements CrudDao<Usuario> {
             pst.setString(4, usuario.getSenha());
             pst.setString(5, usuario.getPerfi());
             pst.setString(6, usuario.getIdUsuario());
-
+            
             adicionado = pst.executeUpdate();
+            
+            this.conexao.close();
+            
             return adicionado;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -95,6 +102,9 @@ public class UsuarioDao implements CrudDao<Usuario> {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, idUsuario);
             rs = pst.executeQuery();
+            
+             this.conexao.close();
+            
             return rs;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
