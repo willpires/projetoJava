@@ -10,12 +10,13 @@ import java.sql.SQLException;
 
 public class ClienteDao implements CrudDao<Cliente> {
 
-    PreparedStatement pst;
-    ResultSet rs = null;
-    Connection conexao = FabricaConexao.obterConexao();
+    private PreparedStatement pst;
+    private Connection conexao = null;
 
     @Override
     public int adicionar(Cliente cliente) {
+        this.conexao = FabricaConexao.obterConexao();
+        int adicionado = 0;
         String sql = "insert into tbclientes(nomeCli,endCli,foneCli,emailCli) values (?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
@@ -23,30 +24,37 @@ public class ClienteDao implements CrudDao<Cliente> {
             pst.setString(2, cliente.getEndereco());
             pst.setString(3, cliente.getTelefone());
             pst.setString(4, cliente.getEmail());
-
-            return pst.executeUpdate();
+            adicionado = pst.executeUpdate();
+            conexao.close();
+            return adicionado;
         } catch (SQLException e) {
             System.err.print("Falha ao tentar adicionar: " + e.getMessage());
 
         }
-        return 0;
+        return adicionado;
     }
 
     @Override
     public int remover(String id) {
+        int adicionado = 0;
+        this.conexao = FabricaConexao.obterConexao();
         String sql = "delete from tbclientes where idCli = ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, id);
-            return pst.executeUpdate();
+            adicionado = pst.executeUpdate();
+            conexao.close();
+            return adicionado;
         } catch (SQLException e) {
             System.err.print("Falha ao tentar remover: " + e.getMessage());
         }
-        return 0;
+        return adicionado;
     }
 
     @Override
-    public int alterar(String id, Cliente cliente) {
+    public int alterar(Cliente cliente) {
+        int adicionado = 0;
+        this.conexao = FabricaConexao.obterConexao();
         String sql = "update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where idcli=?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -54,18 +62,21 @@ public class ClienteDao implements CrudDao<Cliente> {
             pst.setString(2, cliente.getEndereco());
             pst.setString(3, cliente.getTelefone());
             pst.setString(4, cliente.getEmail());
-            pst.setInt(5, cliente.getIdCliente());
-
-            return pst.executeUpdate();
+            pst.setString(5, cliente.getIdCliente());
+            adicionado = pst.executeUpdate();
+            conexao.close();
+            return adicionado;
 
         } catch (SQLException e) {
             System.err.print("Falha ao tentar alterar: " + e.getMessage());
         }
-        return 0;
+        return adicionado;
     }
 
     @Override
     public ResultSet pesquisar(String pesquisa) {
+        ResultSet rs = null;
+        this.conexao = FabricaConexao.obterConexao();
         String sql = "select * from tbclientes where nomeCli like ?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -73,6 +84,7 @@ public class ClienteDao implements CrudDao<Cliente> {
             ////"%" é continuaçao do comando sql
             pst.setString(1, pesquisa + "%");
             rs = pst.executeQuery();
+            conexao.close();
             return rs;
 
         } catch (SQLException e) {

@@ -5,17 +5,21 @@
  */
 package br.com.infox.controller;
 
-import java.sql.ResultSet;
-
 /**
  *
  * @author tomaz
  */
-
 public interface ContratoCliente {
-    
+
     interface ViewCliente {
-        void sucessoPesquisa(ResultSet resultSet);
+
+//        public void sucessoPesquisa(ResultSet resultSet);
+        public void clienteCadastrado(int cadastrado);
+
+        public void dadosAlterado(int atualizado);
+
+        public void clienteRemovido(int removido);
+
     }
-    
+
 }

@@ -2,17 +2,17 @@ package br.com.infox.model;
 
 public class Cliente {
  
-    private Integer idCliente;
+    private String idCliente;
     private String nome;
     private String endereco;
     private String telefone;
     private String email;
 
-    public Integer getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 
