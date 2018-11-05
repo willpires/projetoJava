@@ -1,7 +1,8 @@
 package br.com.infox.controller;
 
-import br.com.infox.dao.ClienteDao;
-import br.com.infox.bean.Cliente;
+import br.com.infox.contrato.ContratoCliente;
+import br.com.infox.models.ClienteDao;
+import br.com.infox.domain.Cliente;
 
 public class ClienteController {
     

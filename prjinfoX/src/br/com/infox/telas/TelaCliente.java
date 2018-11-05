@@ -6,10 +6,10 @@
 package br.com.infox.telas;
 
 import br.com.infox.controller.ClienteController;
-import br.com.infox.controller.ContratoCliente;
+import br.com.infox.contrato.ContratoCliente;
 import java.sql.*;
 import br.com.infox.connection.FabricaConexao;
-import br.com.infox.bean.Cliente;
+import br.com.infox.domain.Cliente;
 import javax.swing.JOptionPane;
 // a linha abaixo importa recursos da biblioteca rs2xml.jar para preenchimento da tabela
 

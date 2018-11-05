@@ -1,4 +1,4 @@
-package br.com.infox.dao;
+package br.com.infox.models;
 
 import java.sql.ResultSet;
 

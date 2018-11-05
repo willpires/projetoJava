@@ -1,6 +1,6 @@
-package br.com.infox.dao;
+package br.com.infox.models;
 
-import br.com.infox.bean.Usuario;
+import br.com.infox.domain.Usuario;
 import br.com.infox.connection.FabricaConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

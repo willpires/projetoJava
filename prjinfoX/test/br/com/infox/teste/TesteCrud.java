@@ -1,7 +1,7 @@
 package br.com.infox.teste;
 
-import br.com.infox.dao.ClienteDao;
-import br.com.infox.bean.Cliente;
+import br.com.infox.models.ClienteDao;
+import br.com.infox.domain.Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

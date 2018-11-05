@@ -1,7 +1,7 @@
-package br.com.infox.dao;
+package br.com.infox.models;
 
 import br.com.infox.connection.FabricaConexao;
-import br.com.infox.bean.Cliente;
+import br.com.infox.domain.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

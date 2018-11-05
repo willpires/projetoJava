@@ -1,4 +1,4 @@
-package br.com.infox.bean;
+package br.com.infox.domain;
 
 import java.util.Date;
 

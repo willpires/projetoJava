@@ -1,4 +1,4 @@
-package br.com.infox.controller;
+package br.com.infox.contrato;
 
 public interface ContratoCliente {
 
