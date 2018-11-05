@@ -3,12 +3,14 @@ package br.com.infox.controller;
 import br.com.infox.contrato.ContratoCliente;
 import br.com.infox.models.ClienteDao;
 import br.com.infox.domain.Cliente;
+import br.com.infox.utils.DependenciaFactory;
 
 public class ClienteController {
     
-    ClienteDao clienteDao = new ClienteDao();
+    private ClienteDao clienteDao = DependenciaFactory.obterInstanciaClienteDao();
 
     public void adicionar(Cliente cliente, ContratoCliente.ViewCliente viewCliente) {
+        
         int linhasAfetadas = clienteDao.adicionar(cliente);
         viewCliente.clienteCadastrado(linhasAfetadas);
     }

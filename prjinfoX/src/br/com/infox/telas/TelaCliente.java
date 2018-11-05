@@ -10,6 +10,7 @@ import br.com.infox.contrato.ContratoCliente;
 import java.sql.*;
 import br.com.infox.connection.FabricaConexao;
 import br.com.infox.domain.Cliente;
+import br.com.infox.utils.DependenciaFactory;
 import javax.swing.JOptionPane;
 // a linha abaixo importa recursos da biblioteca rs2xml.jar para preenchimento da tabela
 
@@ -21,10 +22,9 @@ import net.proteanit.sql.DbUtils;
  */
 public class TelaCliente extends javax.swing.JInternalFrame implements ContratoCliente.ViewCliente {
 
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-    ClienteController clienteController = new ClienteController();
+    private Connection conexao = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
 
     /**
      * Creates new form TelaCliente
@@ -336,7 +336,9 @@ public class TelaCliente extends javax.swing.JInternalFrame implements ContratoC
             JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
 
         } else {
-            Cliente cliente = new Cliente();
+            ClienteController clienteController = DependenciaFactory.obterInstanciaClienteController();
+            Cliente cliente = DependenciaFactory.obterInstanciaCliente();
+            
             cliente.setNome(txtCliNome.getText());
             cliente.setEndereco(txtCliEndereco.getText());
             cliente.setTelefone(txtCliFone.getText());
@@ -355,7 +357,9 @@ public class TelaCliente extends javax.swing.JInternalFrame implements ContratoC
             JOptionPane.showMessageDialog(null, "preencha todos os campos obrigatorios ");
 
         } else {
-            Cliente cliente = new Cliente();
+            ClienteController clienteController = DependenciaFactory.obterInstanciaClienteController();
+            Cliente cliente = DependenciaFactory.obterInstanciaCliente();
+            
             cliente.setNome(txtCliNome.getText());
             cliente.setEndereco(txtCliEndereco.getText());
             cliente.setTelefone(txtCliFone.getText());
@@ -380,6 +384,9 @@ public class TelaCliente extends javax.swing.JInternalFrame implements ContratoC
         // chamando metodo remover
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este Cliente? ", "Atençao!", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
+            
+            ClienteController clienteController = DependenciaFactory.obterInstanciaClienteController();
+            
             clienteController.remover(txtCliId.getText(), this);
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
