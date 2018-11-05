@@ -1,8 +1,8 @@
-package br.com.infox.models;
+package br.com.infox.contrato;
 
 import java.sql.ResultSet;
 
-public interface CrudDao<E> {
+public interface CrudContrato<E> {
     int adicionar(E entidade);
     int remover(String id);
     int alterar(E entidade);

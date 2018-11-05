@@ -7,8 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import br.com.infox.contrato.CrudContrato;
 
-public class UsuarioDao implements CrudDao<Usuario> {
+public class UsuarioDao implements CrudContrato<Usuario> {
 
     private Connection conexao = null;
     private PreparedStatement pst = null;
