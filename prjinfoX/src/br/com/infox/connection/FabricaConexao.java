@@ -16,9 +16,9 @@ public final class FabricaConexao {
         // proxima linha "chama" o driver que eu improtei pra bibliotecas
         String driver = "com.mysql.jdbc.Driver";
         // Armazenando informações referente ao banco 
-        String url = "jdbc:mysql://68.183.60.229:3306/projeto_java";
+        String url = "jdbc:mysql://localhost:3306/<nome_banco>";
         String user = "root";
-        String password = "ZAMcry189";
+        String password = "";
         // conexão com a porra do banco
         try {
             Class.forName(driver);
