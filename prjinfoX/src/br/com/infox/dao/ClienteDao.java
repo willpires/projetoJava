@@ -74,7 +74,7 @@ public class ClienteDao implements CrudDao<Cliente> {
     }
 
     @Override
-    public ResultSet pesquisar(String pesquisa) {
+    public ResultSet consultar(String pesquisa) {
         ResultSet rs = null;
         this.conexao = FabricaConexao.obterConexao();
         String sql = "select * from tbclientes where nomeCli like ?";

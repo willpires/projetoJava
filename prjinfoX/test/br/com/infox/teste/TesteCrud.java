@@ -17,7 +17,7 @@ public class TesteCrud {
 
         Cliente cliente = new Cliente();
         ClienteDao clienteDao = new ClienteDao();
-        ResultSet resultSet = clienteDao.pesquisar("Agenor Souza");
+        ResultSet resultSet = clienteDao.consultar("Agenor Souza");
         try {
             while (resultSet.next()) {
                 cliente.setNome(resultSet.getString("nomecli"));

@@ -2,18 +2,18 @@ package br.com.infox.bean;
 
 public class Usuario {
     
-    private Integer idUsuario;
+    private String idUsuario;
     private String usuario;
     private String fone;
     private String login;
     private String senha;
     private String perfi;
 
-    public Integer getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
